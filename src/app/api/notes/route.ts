@@ -1,5 +1,7 @@
 import prisma from "@/lib/db/prisma";
+import { createNoteSchema } from "@/lib/validation/note";
 import { auth } from "@clerk/nextjs";
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -13,7 +15,7 @@ export async function POST(req: Request) {
 
     const { title, content } = parseResult.data;
 
-    const {} = auth();
+    const { userId } = auth();
 
     if (!userId) {
       return Response.json({ error: "Unauthorized" }, { status: 401 });
