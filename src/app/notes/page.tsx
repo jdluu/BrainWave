@@ -1,7 +1,8 @@
 import Note from "@/components/Note";
 import prisma from "@/lib/db/prisma";
-import { Metadata } from "next";
 import { auth } from "@clerk/nextjs";
+import { Metadata } from "next";
+
 export const metadata: Metadata = {
   title: "FlowBrain - Notes",
 };
