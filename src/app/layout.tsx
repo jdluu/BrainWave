@@ -7,8 +7,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "FlowBrain",
-  description: "The intelligent note-taking app",
+  title: "BrainWave",
+  description: "The ai-powered note-taking app",
 };
 
 export default function RootLayout({
