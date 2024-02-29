@@ -1,8 +1,8 @@
-import Image from "next/image";
 import logo from "@/assets/logo.png";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { auth } from "@clerk/nextjs";
+import Image from "next/image";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
         </span>
       </div>
       <p className="max-w-prose text-center">
-        An intelligent note-taking app with AI integration, built with OpenAi,
+        An intelligent note-taking app with AI integration, built with OpenAI,
         Pinecone, Next.js, Shadcn UI, Clerk, and more.
       </p>
       <Button size="lg" asChild>
