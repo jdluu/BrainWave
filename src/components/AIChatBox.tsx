@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
-import { Message } from "ai";
-import { useChat } from "ai/react";
+import { useChat } from "@ai-sdk/react";
 import { Bot, Trash, XCircle } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
@@ -22,7 +21,7 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
     setMessages,
     isLoading,
     error,
-  } = useChat();
+  } = useChat() as any;
 
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -53,7 +52,7 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
       </button>
       <div className="flex h-[600px] flex-col rounded border bg-background shadow-xl">
         <div className="mt-3 h-full overflow-y-auto px-3" ref={scrollRef}>
-          {messages.map((message) => (
+          {messages.map((message: any) => (
             <ChatMessage message={message} key={message.id} />
           ))}
           {isLoading && lastMessageIsUser && (
@@ -106,7 +105,7 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
 function ChatMessage({
   message: { role, content },
 }: {
-  message: Pick<Message, "role" | "content">;
+  message: any;
 }) {
   const { user } = useUser();
 

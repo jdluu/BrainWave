@@ -1,6 +1,6 @@
 import Note from "@/components/Note";
 import prisma from "@/lib/db/prisma";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 export default async function NotesPage() {
-  const { userId } = auth();
+  const { userId } = await auth();
 
   if (!userId) throw Error("userId undefined");
 

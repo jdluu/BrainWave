@@ -1,12 +1,12 @@
 import logo from "@/assets/logo.png";
 import { Button } from "@/components/ui/button";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-export default function Home() {
-  const { userId } = auth();
+export default async function Home() {
+  const { userId } = await auth();
 
   if (userId) redirect("/notes");
 
