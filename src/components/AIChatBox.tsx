@@ -141,7 +141,7 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
             aria-label="Chat message"
             className="flex-1"
           />
-          <Button type="submit" disabled={!input.trim()}>
+          <Button type="submit" disabled={!input?.trim()}>
             Send
           </Button>
         </form>
