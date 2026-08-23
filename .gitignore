@@ -40,3 +40,10 @@ next-env.d.ts
 
 # Environment Variables
 .env
+
+# SQLite database
+db/
+*.db
+
+# Generated Prisma client
+src/generated/

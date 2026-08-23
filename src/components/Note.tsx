@@ -1,6 +1,6 @@
 "use client";
 
-import { Note as NoteModel } from "@prisma/client";
+import { Note as NoteModel } from "@/generated/prisma/client";
 import { useState } from "react";
 import AddEditNoteDialog from "./AddEditNoteDialog";
 import {

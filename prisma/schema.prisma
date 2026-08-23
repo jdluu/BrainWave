@@ -1,21 +1,20 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-generator client {
-  provider = "prisma-client-js"
+datasource db {
+  provider = "sqlite"
 }
 
-datasource db {
-  provider = "mongodb"
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
 }
 
 model Note {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @default(cuid())
   title     String
   content   String?
   userId    String
+  embedding Bytes?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@map("notes")
+  @@index([userId])
 }

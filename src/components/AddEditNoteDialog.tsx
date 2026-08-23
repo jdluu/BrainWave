@@ -1,6 +1,6 @@
 import { CreateNoteSchema, createNoteSchema } from "@/lib/validation/note";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Note } from "@prisma/client";
+import { Note } from "@/generated/prisma/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";

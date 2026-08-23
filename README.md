@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# BrainWave — AI Note-Taking App
+
+An AI-powered note-taking app. Create and manage notes, then chat with an AI
+assistant that answers questions grounded in **your own notes** via local
+semantic search (RAG).
+
+## Features
+
+- 📝 Full note CRUD (create, edit, delete) with per-user auth via Clerk
+- 🤖 AI chat that retrieves your most relevant notes using embeddings and
+  answers questions based on them
+- 🔒 Notes are private per user; retrieval is always scoped to the signed-in user
+- 🌗 Dark mode
+
+## Tech Stack
+
+- **Framework:** Next.js (App Router) + React + TypeScript
+- **Styling:** Tailwind CSS + shadcn/ui
+- **Auth:** Clerk
+- **Database:** SQLite via Prisma ORM
+- **Embeddings:** [`@huggingface/transformers`](https://huggingface.co/docs/transformers.js)
+  running locally (`Xenova/bge-small-en-v1.5`, 384-dim) — no external API
+- **Semantic search:** In-database vector storage with cosine similarity scoring
+- **Chat model:** `openai/gpt-oss-20b` served free by [Groq](https://groq.com),
+  streamed via the Vercel AI SDK
+
+No paid API keys are required to run this project.
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
+cp .env.example .env.local   # fill in GROQ_API_KEY + Clerk keys
+npx prisma db push           # create the SQLite database
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How the AI chat works
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. The last few chat messages are embedded locally.
+2. Your notes are scored against the query with cosine similarity.
+3. The top 4 matching notes are injected into the system prompt.
+4. Groq streams a grounded answer back to the UI.
 
-## Learn More
+## Deployment
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Deploys as a standard Next.js app (e.g. Vercel). Set the environment variables
+from `.env.example` in your hosting provider's dashboard. On serverless hosts,
+point `DATABASE_URL` at a persistent volume, or swap the datasource for a
+hosted database of your choice.
