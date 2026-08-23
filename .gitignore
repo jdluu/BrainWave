@@ -47,3 +47,7 @@ db/
 
 # Generated Prisma client
 src/generated/
+
+# Turso local artifacts
+auth*
+version*
