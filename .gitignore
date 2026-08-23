@@ -51,3 +51,4 @@ src/generated/
 # Turso local artifacts
 auth*
 version*
+.env*

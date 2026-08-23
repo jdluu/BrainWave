@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS notes (
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  content TEXT,
+  userId TEXT NOT NULL,
+  embedding BLOB,
+  createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updatedAt DATETIME NOT NULL
+);
+CREATE INDEX IF NOT EXISTS notes_userId_idx ON notes(userId);

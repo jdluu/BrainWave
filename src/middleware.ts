@@ -1,10 +1,19 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
 const isPublicRoute = createRouteMatcher(["/", "/sign-in(.*)", "/sign-up(.*)"]);
 
+// Workaround for https://github.com/clerk/javascript/issues/8302:
+// auth.protect() mis-redirects in the Next.js 16 proxy runtime, so we do a
+// manual redirect to /sign-in for unauthenticated users instead.
 export default clerkMiddleware(async (auth, request) => {
   if (!isPublicRoute(request)) {
-    await auth.protect();
+    const { userId } = await auth();
+    if (!userId) {
+      const url = new URL("/sign-in", request.url);
+      url.searchParams.set("redirect_url", request.url);
+      return NextResponse.redirect(url);
+    }
   }
 });
 
