@@ -1,76 +1,129 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
+/*
+ * Design tokens. One accent (teal 600-ish) locked across the app.
+ * Warm-neutral zinc base, off-white / off-black (no pure #000/#fff).
+ * All colors as HSL triplets consumed by Tailwind via tailwind.config.ts.
+ */
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 210 20% 99%;
+    --foreground: 220 18% 11%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
- 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
- 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
- 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
- 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
- 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
- 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --card-foreground: 220 18% 11%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
- 
-    --radius: 0.5rem;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 18% 11%;
+
+    --primary: 173 80% 30%;
+    --primary-foreground: 165 40% 97%;
+
+    --secondary: 215 16% 95%;
+    --secondary-foreground: 220 16% 24%;
+
+    --muted: 215 16% 95%;
+    --muted-foreground: 218 12% 42%;
+
+    --accent: 172 55% 93%;
+    --accent-foreground: 173 70% 22%;
+
+    --destructive: 0 68% 48%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 215 16% 89%;
+    --input: 215 16% 86%;
+    --ring: 173 80% 30%;
+
+    --radius: 0.75rem;
+
+    /* Extended tokens */
+    --accent-soft: 172 60% 95%;
+    --shadow-tint: 173 60% 25%;
   }
- 
+
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
- 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
- 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
- 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
- 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
- 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
- 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
- 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
- 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --background: 220 16% 7%;
+    --foreground: 215 18% 91%;
+
+    --card: 220 15% 10%;
+    --card-foreground: 215 18% 91%;
+
+    --popover: 220 15% 10%;
+    --popover-foreground: 215 18% 91%;
+
+    --primary: 172 65% 52%;
+    --primary-foreground: 175 60% 9%;
+
+    --secondary: 218 13% 15%;
+    --secondary-foreground: 215 15% 84%;
+
+    --muted: 218 13% 14%;
+    --muted-foreground: 215 12% 62%;
+
+    --accent: 174 40% 16%;
+    --accent-foreground: 172 60% 80%;
+
+    --destructive: 0 62% 52%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 218 12% 18%;
+    --input: 218 12% 21%;
+    --ring: 172 65% 52%;
+
+    --accent-soft: 174 40% 13%;
+    --shadow-tint: 172 60% 40%;
   }
 }
- 
+
 @layer base {
   * {
     @apply border-border;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+  }
+
+  ::selection {
+    @apply bg-primary/20;
+  }
+}
+
+@layer utilities {
+  /* Soft radial glow for the hero, tinted to the accent (not AI-purple) */
+  .bg-hero-glow {
+    background:
+      radial-gradient(
+        48rem 28rem at 12% -8%,
+        hsl(var(--primary) / 0.1),
+        transparent 60%
+      ),
+      radial-gradient(
+        42rem 26rem at 92% 6%,
+        hsl(var(--primary) / 0.06),
+        transparent 55%
+      );
+  }
+
+  .glass {
+    @apply bg-background/80 backdrop-blur-md;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

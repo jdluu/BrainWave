@@ -22,23 +22,40 @@ export default function Note({ note }: NoteProps) {
 
   const createdUpdatedAtTimestamp = (
     wasUpdated ? note.updatedAt : note.createdAt
-  ).toDateString();
+  ).toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
 
   return (
     <>
       <Card
-        className="cursor-pointer transition-shadow hover:shadow-lg"
+        role="button"
+        tabIndex={0}
+        aria-label={`Open note: ${note.title}`}
+        className="group cursor-pointer shadow-card transition-all hover:-translate-y-0.5 hover:shadow-card-hover focus-visible:-translate-y-0.5 active:translate-y-0"
         onClick={() => setShowEditDialog(true)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setShowEditDialog(true);
+          }
+        }}
       >
-        <CardHeader>
-          <CardTitle>{note.title}</CardTitle>
+        <CardHeader className="pb-2">
+          <CardTitle className="line-clamp-2 leading-snug">
+            {note.title}
+          </CardTitle>
           <CardDescription>
             {createdUpdatedAtTimestamp}
-            {wasUpdated && " (updated)"}
+            {wasUpdated && " (edited)"}
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="whitespace-pre-line">{note.content}</p>
+          <p className="line-clamp-6 whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
+            {note.content}
+          </p>
         </CardContent>
       </Card>
       <AddEditNoteDialog

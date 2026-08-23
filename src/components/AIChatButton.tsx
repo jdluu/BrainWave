@@ -8,9 +8,13 @@ export default function AIChatButton() {
 
   return (
     <>
-      <Button onClick={() => setChatBoxOpen(true)}>
-        <Bot size={20} className="mr-2" />
-        AI Chat
+      <Button
+        onClick={() => setChatBoxOpen(true)}
+        aria-label="Open AI chat"
+        className="sm:px-4"
+      >
+        <Bot className="h-5 w-5 sm:mr-2" strokeWidth={1.75} />
+        <span className="hidden sm:inline">AI Chat</span>
       </Button>
       <AIChatBox open={chatBoxOpen} onClose={() => setChatBoxOpen(false)} />
     </>
