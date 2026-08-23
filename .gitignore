@@ -52,3 +52,11 @@ src/generated/
 auth*
 version*
 .env*
+
+# Agent/dev tooling (auto-generated, not part of the app)
+AGENTS.md
+CLAUDE.md
+.claude/
+.agents/
+skills-lock.json
+tsconfig.tsbuildinfo
