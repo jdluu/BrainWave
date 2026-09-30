@@ -4,13 +4,13 @@ An AI-powered note-taking app. Create and manage notes, then chat with an AI
 assistant that answers questions grounded in **your own notes** via local
 semantic search (RAG).
 
-![BrainWave landing page](docs/screenshots/cover.png)
+![BrainWave landing page](screenshots/cover.png)
 
 ## Screenshots
 
 | Landing page | Notes + AI chat |
 | --- | --- |
-| ![Landing](docs/screenshots/cover.png) | ![Notes app](docs/screenshots/notes-app.png) |
+| ![Landing](screenshots/cover.png) | ![Notes app](screenshots/notes-app.png) |
 
 ## Features
 
